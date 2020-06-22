@@ -29,9 +29,11 @@ body {
     text-align: center;
 }
 .messages {
-    padding: 5%;
+    padding-top: 5%;
+    padding-left: 5%;
+    padding-right: 5%;
     max-width: 100%;
-    height: 75%;
+    height: 77%;
     overflow: auto;
 }
 .name {
