@@ -1,0 +1,32 @@
+{
+  "name": "trump_website",
+  "version": "1.0.0",
+  "description": "generates fictive tweets with language style of donald trump",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/vairasza/trumpbot_website.git"
+  },
+  "keywords": [
+    "natural",
+    "language",
+    "energineering",
+    "trump",
+    "tweet",
+    "generation",
+    "fictive"
+  ],
+  "author": "vairasza",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/vairasza/trumpbot_website/issues"
+  },
+  "homepage": "https://github.com/vairasza/trumpbot_website#readme",
+  "dependencies": {
+    "eslint": "^7.3.0",
+    "npm": "^6.14.5"
+  }
+}
