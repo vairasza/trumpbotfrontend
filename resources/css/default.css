@@ -22,7 +22,7 @@ body {
     margin: auto;
     position: relative;
     background-color:rgba(255, 255, 255, .8);
-    width: 50%;
+    width: 60%;
     height: 80%;
 }
 .title {
@@ -34,18 +34,16 @@ body {
     height: 75%;
     overflow: auto;
 }
-.message {
-    display: inline-block;
-}
 .name {
-    padding-left: 2%;
+    font-size: 22px;
+    padding-left: 1%;
     vertical-align: middle;
     display: inline;
 }
 .avatar {
     vertical-align: middle;
-    width:5%;
-    height: auto;
+    width: 35px;
+    height: 35px;
     display: inline;
 }
 .controls {
@@ -55,9 +53,8 @@ body {
     height: 5%;
 }
 .message-text {
-    margin-top: 1%;
+    margin-top: 2%;
     margin-bottom: 5%;
-    padding-left: 8%;
 }
 .write-topic {
     height: 100%;

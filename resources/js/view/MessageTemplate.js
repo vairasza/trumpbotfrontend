@@ -12,6 +12,7 @@ const Template = (message_json) => {
     entryNode.innerHTML = createEntryTemplate(message_json);
 
     messages.appendChild(entryNode);
+    messages.scrollTop = messages.scrollHeight;
 };
 
 export default Template;

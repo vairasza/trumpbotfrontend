@@ -7,16 +7,7 @@ class TrumpModel {
 
     constructor() {
         this.DownloadWorker = new DownloadWorker();
-    }
-
-    postTrumpMessage(input) {
-        let inputObject = {
-            imagefile: "trump",
-            imagealt: "trump-avatar",
-            namevalue: "Donald Trump:",
-            messagetext: input,
-        }
-        Template(inputObject)
+        this.DownloadWorker.addEventListener("received-new-tweet", this.addNewMessage);
     }
 
     postUserMessage(input) {
@@ -29,11 +20,29 @@ class TrumpModel {
         Template(inputObject)
     }
 
-    getNewTweet(user_input) {
-        let input = {
-            "user_input": user_input,
+    getNewTweet(user_input) {    
+        this.DownloadWorker.fetchAPI(user_input);
+    }
+
+    addNewMessage(event) {
+        let inputObject = {
+            imagefile: "trump",
+            imagealt: "trump-avatar",
+            namevalue: "Donald Trump:",
+            messagetext: event.data.message,
         }
-        this.DownloadWorker.fetchAPI(JSON.stringify(input));
+        Template(inputObject)
+        
+        if (event.data.content !== "") {
+            let inputObject = {
+                imagefile: "trump",
+                imagealt: "trump-avatar",
+                namevalue: "Donald Trump:",
+                messagetext: event.data.content,
+            }
+            Template(inputObject)
+        }
+        
     }
 }
 

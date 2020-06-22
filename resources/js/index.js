@@ -14,8 +14,6 @@ function init() {
             requestTweet();
         }
     });
-    messages.addEventListener("received-new-tweet", addNewMessage);
-    messages.addEventListener("error-input-request", displayErrorMessage);
 }
 
 function requestTweet() {
@@ -25,18 +23,6 @@ function requestTweet() {
         TrumpModel.getNewTweet(input.value);
         input.value = "";
     }
-}
-
-function addNewMessage(event) {
-    TrumpModel.postTrumpMessage(event.data.message);
-    if (event.data.content !== null) {
-        TrumpModel.postTrumpMessage(event.data.content);
-    }
-    button.enabled;
-}
-
-function displayErrorMessage() {
-    //todo
 }
 
 //save user input to s3
