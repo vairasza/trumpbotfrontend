@@ -1,61 +1,44 @@
-//https://www.flaticon.com/free-icon/user_848006?term=user%20avatar&page=1&position=5
-//https://unsplash.com/photos/jPN_oglAjOU
+/* eslint-env browser */
 
-let trump = {};
-trump.avatar = "https://lh6.googleusercontent.com/-lr2nyjhhjXw/AAAAAAAAAAI/AAAAAAAARmE/MdtfUmC0M4s/photo.jpg?sz=48";
+import TrumpModel from "./data/TrumpModel.js";
 
-let you = {};
-you.avatar = "https://a11.t26.net/taringa/avatares/9/1/2/F/7/8/Demon_King1/48x48_5C5.jpg";
+const messages = document.querySelector(".messages"),
+    input = document.querySelector(".input"),
+    button = document.querySelector(".button");
 
-    
-//-- No use time. It is a javaScript effect.
-function insertChat(who, text, time){
-    var control = "";
-    
-    if (who == "me"){
-        control = '<li style="width:100%">' +
-                        '<div class="msj macro">' +
-                        '<div class="avatar"><img class="img-circle" style="width:100%;" src="'+ me.avatar +'" /></div>' +
-                            '<div class="text text-l">' +
-                                '<p>'+ text +'</p>' +
-                                '<p><small>'+date+'</small></p>' +
-                            '</div>' +
-                        '</div>' +
-                    '</li>';                    
-    }else{
-        control = '<li style="width:100%;">' +
-                        '<div class="msj-rta macro">' +
-                            '<div class="text text-r">' +
-                                '<p>'+text+'</p>' +
-                                '<p><small>'+date+'</small></p>' +
-                            '</div>' +
-                        '<div class="avatar" style="padding:0px 0px 0px 10px !important"><img class="img-circle" style="width:100%;" src="'+you.avatar+'" /></div>' +                                
-                  '</li>';
-    }
-    setTimeout(
-        function(){                        
-            $("ul").append(control).scrollTop($("ul").prop('scrollHeight'));
-        }, time);
-    
-}
-
-function resetChat(){
-    $("ul").empty();
-}
-
-$(".mytext").on("keydown", function(e){
-    if (e.which == 13){
-        var text = $(this).val();
-        if (text !== ""){
-            insertChat("me", text);              
-            $(this).val('');
+function init() {
+    button.addEventListener("click", requestTweet);
+    input.focus();
+    input.addEventListener("keyup", function(event) {
+        if (event.keyCode === 13) {
+            requestTweet();
         }
+    });
+    messages.addEventListener("received-new-tweet", addNewMessage);
+    messages.addEventListener("error-input-request", displayErrorMessage);
+}
+
+function requestTweet() {
+    if (input.value !== "") {
+        button.disabled;
+        TrumpModel.postUserMessage(input.value);
+        TrumpModel.getNewTweet(input.value);
+        input.value = "";
     }
-});
+}
 
-$('body > div > div > div:nth-child(2) > span').click(function(){
-    $(".mytext").trigger({type: 'keydown', which: 13, keyCode: 13});
-})
+function addNewMessage(event) {
+    TrumpModel.postTrumpMessage(event.data.message);
+    if (event.data.content !== null) {
+        TrumpModel.postTrumpMessage(event.data.content);
+    }
+    button.enabled;
+}
 
-//-- Clear Chat
-resetChat();
+function displayErrorMessage() {
+    //todo
+}
+
+//save user input to s3
+
+init();
