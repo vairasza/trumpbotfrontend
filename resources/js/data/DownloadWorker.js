@@ -8,11 +8,11 @@ class DownloadWorker extends Observable{
         super();
     }
 
-    fetchAPI(user_input) {        
+    fetchAPI(user_input) {  
         fetch("https://mrq694isze.execute-api.eu-central-1.amazonaws.com/trumpbot_test/trumpbot",
         {
             method: 'POST',
-            body: JSON.stringify({"user_input":user_input}),
+            body: JSON.stringify(user_input),
             redirect: 'follow',
         })
         .then(response => response.json())
