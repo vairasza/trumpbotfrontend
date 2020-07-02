@@ -71,12 +71,7 @@ function getHelp() {
 
 function removeHelper() {
     infobox.classList.add("hidden");
-    input.addEventListener("keyup", listenToKeyEnter);
-    button.addEventListener("click", requestTweet);
-
-    input.disabled = false;
-    input.placeholder = "Type in a topic...";
-    input.focus();
+    reattachEventListener();
 }
 
 init();
