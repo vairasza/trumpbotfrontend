@@ -18,6 +18,41 @@ body {
     overflow:hidden;
     display:flex;
 }
+.modal {
+    color: black;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, .5);
+}
+.modal-content {
+    background-color: #f4f4f4;
+    margin: 10% auto;
+    padding: 3%;
+    width: 30%;
+}
+.modal-list {
+    margin-bottom: 5%;
+}
+.closeButton {
+    color: #ccc;
+    float: right;
+    font-size: 30px;
+}
+.closeButton:hover,.closeButton:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+.start-bot {
+    padding: 1em 2em;
+    margin: auto;
+    display: block;
+}
 .chatbox {
     margin: auto;
     position: relative;

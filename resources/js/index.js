@@ -2,13 +2,20 @@
 
 import TrumpModel from "./data/TrumpModel.js";
 
-const messages = document.querySelector(".messages"),
+const startButton = document.querySelector(".start-bot"),
+    modal = document.querySelector(".modal"),
     input = document.querySelector(".input"),
     button = document.querySelector(".button");
 
 const trumpModel = new TrumpModel();
 
 function init() {
+    startButton.addEventListener("click", startBot);
+}
+
+function startBot() {
+    modal.remove();
+    
     button.addEventListener("click", requestTweet);
     input.addEventListener("keyup", listenToKeyEnter);
     input.focus();
