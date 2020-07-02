@@ -5,7 +5,9 @@ import TrumpModel from "./data/TrumpModel.js";
 const startButton = document.querySelector(".start-bot"),
     modal = document.querySelector(".modal"),
     input = document.querySelector(".input"),
-    button = document.querySelector(".button");
+    button = document.querySelector(".button"),
+    help = document.querySelector(".help-button"),
+    infobox = document.querySelector(".infobox");
 
 const trumpModel = new TrumpModel();
 
@@ -16,6 +18,7 @@ function init() {
 function startBot() {
     modal.remove();
     
+    help.addEventListener("click", getHelp);
     button.addEventListener("click", requestTweet);
     input.addEventListener("keyup", listenToKeyEnter);
     input.focus();
@@ -50,6 +53,24 @@ function requestTweet() {
 }
 
 function reattachEventListener() {
+    input.addEventListener("keyup", listenToKeyEnter);
+    button.addEventListener("click", requestTweet);
+
+    input.disabled = false;
+    input.placeholder = "Type in a topic...";
+    input.focus();
+}
+
+function getHelp() {
+    infobox.classList.remove("hidden");
+    button.removeEventListener("click", requestTweet);
+    input.removeEventListener("keyup", listenToKeyEnter);
+    input.disabled = true;
+    document.querySelector(".resume-bot").addEventListener("click", removeHelper);
+}
+
+function removeHelper() {
+    infobox.classList.add("hidden");
     input.addEventListener("keyup", listenToKeyEnter);
     button.addEventListener("click", requestTweet);
 
