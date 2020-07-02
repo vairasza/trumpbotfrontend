@@ -6,7 +6,7 @@ const messages = document.querySelector(".messages"),
     input = document.querySelector(".input"),
     button = document.querySelector(".button");
 
-const trumpModel = new TrumpModel();;
+const trumpModel = new TrumpModel();
 
 function init() {
     button.addEventListener("click", requestTweet);

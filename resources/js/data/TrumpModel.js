@@ -16,6 +16,7 @@ class TrumpModel extends Observable{
         
         this.DownloadWorker = new DownloadWorker();
         this.DownloadWorker.addEventListener("received-new-tweet", this.addNewMessage.bind(this));
+        this.DownloadWorker.addEventListener("error-input-request", this.addErrorMessage.bind(this));
     }
 
     postUserMessage(input) {
@@ -42,26 +43,46 @@ class TrumpModel extends Observable{
         this.newest_tweet.last_tweet = event.data.last_tweet;
         this.newest_tweet.fake_tweet = event.data.fake_tweet;
 
-        let inputObject = {
-            imagefile: "trump",
-            imagealt: "trump-avatar",
-            namevalue: "Donald Trump:",
-            messagetext: event.data.flavor_text,
+        if (event.data.last_tweet == "error") {
+            this.addErrorMessage();
         }
-        Template(inputObject)
-        
-        if (event.data.last_tweet !== "") {
+        else {
             let inputObject = {
                 imagefile: "trump",
                 imagealt: "trump-avatar",
                 namevalue: "Donald Trump:",
-                messagetext: event.data.last_tweet,
+                messagetext: event.data.flavor_text,
             }
             Template(inputObject)
+            
+            if (event.data.last_tweet !== "") {
+                let inputObject = {
+                    imagefile: "trump",
+                    imagealt: "trump-avatar",
+                    namevalue: "Donald Trump:",
+                    messagetext: event.data.last_tweet,
+                }
+                Template(inputObject)
+            }
+    
+            this.notifyAll(new Event("added-new-text"));
         }
+    }
+
+    addErrorMessage() {
+        this.newest_tweet.flavor_text = "While the team tries to figure out what went wrong, try another topic...";
+        this.newest_tweet.last_tweet = "";
+        this.newest_tweet.fake_tweet = "exit";
+
+        let inputObject = {
+            imagefile: "trump",
+            imagealt: "trump-avatar",
+            namevalue: "Donald Trump:",
+            messagetext: this.newest_tweet.flavor_text,
+        }
+        Template(inputObject)
 
         this.notifyAll(new Event("added-new-text"));
-        
     }
 }
 
