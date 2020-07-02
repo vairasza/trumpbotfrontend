@@ -38,16 +38,6 @@ body {
 .modal-list {
     margin-bottom: 5%;
 }
-.closeButton {
-    color: #ccc;
-    float: right;
-    font-size: 30px;
-}
-.closeButton:hover,.closeButton:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
-}
 .start-bot {
     padding: 1em 2em;
     margin: auto;
