@@ -5,11 +5,13 @@ import TrumpModel from "./data/TrumpModel.js";
 const startButton = document.querySelector(".start-bot"),
     modal = document.querySelector(".modal"),
     input = document.querySelector(".input"),
-    button = document.querySelector(".button"),
+    button = document.querySelector(".button.send-input"),
     help = document.querySelector(".help-button"),
+    versionSwitch = document.querySelector(".trumpbot-version"),
     infobox = document.querySelector(".infobox");
 
 const trumpModel = new TrumpModel();
+let version = false;
 
 function init() {
     startButton.addEventListener("click", startBot);
@@ -18,11 +20,31 @@ function init() {
 function startBot() {
     modal.remove();
     
+    document.querySelector(".switch-input").addEventListener("change", switchVersion);
     help.addEventListener("click", getHelp);
     button.addEventListener("click", requestTweet);
     input.addEventListener("keyup", listenToKeyEnter);
     input.focus();
     trumpModel.addEventListener("added-new-text", reattachEventListener);
+}
+
+function switchVersion (event) {
+    version = event.target.checked;
+    let messages = document.querySelectorAll(".message")
+    if (messages.length > 1) {
+        for (let i = 2; i < messages.length; i++) {
+            messages[i].innerHTML = null;
+        }
+    }
+    input.value = "";
+
+    if (!version) {
+        versionSwitch.innerHTML = "1.0";
+    }
+    else {
+        versionSwitch.innerHTML = "2.0";
+    }
+    trumpModel.resetInput();
 }
 
 function listenToKeyEnter(event) {
@@ -47,7 +69,7 @@ function requestTweet() {
         };
 
         trumpModel.postUserMessage(input.value);
-        trumpModel.getNewTweet(request);
+        trumpModel.getNewTweet(request, version);
         input.value = "";
     }
 }

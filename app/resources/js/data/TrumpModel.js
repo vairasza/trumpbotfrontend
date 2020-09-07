@@ -19,6 +19,14 @@ class TrumpModel extends Observable{
         this.DownloadWorker.addEventListener("error-input-request", this.addErrorMessage.bind(this));
     }
 
+    resetInput() {
+        this.newest_tweet = {
+            flavor_text: "",
+            last_tweet: "",
+            fake_tweet: ""
+        };
+    }
+
     postUserMessage(input) {
         let inputObject = {
             imagefile: "user",
@@ -29,8 +37,17 @@ class TrumpModel extends Observable{
         Template(inputObject)
     }
 
-    getNewTweet(user_input) {
-        this.DownloadWorker.fetchAPI(user_input);
+    getNewTweet(user_input, version) {
+        if (version) {
+            this.DownloadWorker.fetchAPI_new(user_input);
+        }
+        else {
+            this.DownloadWorker.fetchAPI_alt(user_input);
+        }            
+    }
+
+    getNewTweet_alt(user_input) {
+        this.DownloadWorker.fetchAPI_alt(user_input);
     }
 
     getNewestTweet() {

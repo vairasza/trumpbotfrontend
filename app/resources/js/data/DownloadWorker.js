@@ -17,8 +17,26 @@ class DownloadWorker extends Observable{
         super();
     }
 
-    fetchAPI(user_input) {
+    fetchAPI_new(user_input) {
         fetchWithTimeout("https://mrq694isze.execute-api.eu-central-1.amazonaws.com/trumpbot_test/trumpbot",
+        {
+            method: 'POST',
+            body: JSON.stringify(user_input),
+            redirect: 'follow',
+        }, 10000)
+        .then(response => response.json())
+        .then(data => {
+            let event = new Event("received-new-tweet", data);
+            this.notifyAll(event);
+        })
+        .catch(error => {
+            let event = new Event("error-input-request", error);
+            this.notifyAll(event);
+        });
+    }
+
+    fetchAPI_alt(user_input) {
+        fetchWithTimeout("https://4lph2mtf07.execute-api.eu-central-1.amazonaws.com/prod/trumpbot-alt",
         {
             method: 'POST',
             body: JSON.stringify(user_input),
