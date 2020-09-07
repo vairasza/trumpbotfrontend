@@ -4,6 +4,8 @@ const express = require('express');
 const app = express();
 const port = 8001;
 
+process.title = "trumpbot_website";
+
 app.use(express.static("app"));
 
 app.all('*', (req, res) => {
