@@ -10,7 +10,7 @@ fi
 
 #remove images that are not necessary
 REMOVEABLE_IMAGES=$(docker images --filter dangling=true -q)
-if [ -z $REMOVEABLE_IMAGES ];
+if [ ! -z $REMOVEABLE_IMAGES ];
 then docker rmi $REMOVEABLE_IMAGES -f;
 fi
 
