@@ -40,8 +40,9 @@ jobs:
             git fetch --all &&
             git reset --hard origin/master &&
             git pull origin master &&
-            docker-compose -f docker-compose.prod.yml up -d --build
             APP_NAME="trumpbot_website"
+            OLD_ID=$(docker ps -qaf "name=trumpbotwebsite")
+            docker stop $OLD_ID            
             docker build --rm -t $APP_NAME .
             IMAGE_ID=$(docker images -q $APP_NAME)
             docker rmi `docker images --filter dangling=true -q` -f
