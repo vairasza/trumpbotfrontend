@@ -1,17 +1,17 @@
 /* eslint-env node */
+const express = require('express')
 
-const express = require('express');
-const app = express();
-const port = 8001;
+const app = express()
+const port = process.env.PORT || 8001
 
-process.title = "trumpbot_website";
+process.title = 'trumpbot_website'
 
-app.use(express.static("app"));
+app.use(express.static('app'))
 
 app.all('*', (req, res) => {
-    res.status(404).json({status: "404", message: "Noooooo, you broke our API. What did you do?"});
-});
+	res.sendStatus(401)
+})
 
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
-});
+	console.log(`Example app listening at http://localhost:${port}`)
+})

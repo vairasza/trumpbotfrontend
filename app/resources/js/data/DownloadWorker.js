@@ -1,57 +1,40 @@
 /* eslint-env browser */
 
-import { Event, Observable } from "../utils/Observable.js";
-
 function fetchWithTimeout(url, options, timeout = 7000) {
-    return Promise.race([
-        fetch(url, options),
-        new Promise((_, reject) =>
-            setTimeout(() => reject(new Error('timeout')), timeout)
-        )
-    ]);
+	return Promise.race([
+		fetch(url, options),
+		new Promise((_, reject) =>
+			setTimeout(() => reject(new Error('timeout')), timeout),
+		),
+	])
 }
 
-class DownloadWorker extends Observable{
-    
-    constructor() {
-        super();
-    }
+/**
+ * Makes a request to the Lambda Functions that determine the answer from the trumpbot model
+ * @param {object} user_input data transfered to lambda function to determine the trumpbots response
+ * @param {boolean} api_version false for api version 1.0; true for api version 2.0
+ * @return {Promise<object>} answer from the api; async
+ */
 
-    fetchAPI_new(user_input) {
-        fetchWithTimeout("https://mrq694isze.execute-api.eu-central-1.amazonaws.com/trumpbot_test/trumpbot",
-        {
-            method: 'POST',
-            body: JSON.stringify(user_input),
-            redirect: 'follow',
-        }, 10000)
-        .then(response => response.json())
-        .then(data => {
-            let event = new Event("received-new-tweet", data);
-            this.notifyAll(event);
-        })
-        .catch(error => {
-            let event = new Event("error-input-request", error);
-            this.notifyAll(event);
-        });
-    }
+export const DownloadWorker = (user_input, api_version) => {
+	return new Promise(async (resolve, reject) => {
+		const api_url = api_version
+			? 'https://4lph2mtf07.execute-api.eu-central-1.amazonaws.com/prod/trumpbot-alt'
+			: 'https://mrq694isze.execute-api.eu-central-1.amazonaws.com/trumpbot_test/trumpbot'
+		try {
+			const response = await fetchWithTimeout(
+				api_url,
+				{
+					method: 'POST',
+					body: JSON.stringify(user_input),
+					redirect: 'follow',
+				},
+				10000,
+			)
 
-    fetchAPI_alt(user_input) {
-        fetchWithTimeout("https://4lph2mtf07.execute-api.eu-central-1.amazonaws.com/prod/trumpbot-alt",
-        {
-            method: 'POST',
-            body: JSON.stringify(user_input),
-            redirect: 'follow',
-        }, 10000)
-        .then(response => response.json())
-        .then(data => {
-            let event = new Event("received-new-tweet", data);
-            this.notifyAll(event);
-        })
-        .catch(error => {
-            let event = new Event("error-input-request", error);
-            this.notifyAll(event);
-        });
-    }
+			resolve(response.json())
+		} catch (error) {
+			reject(error.message)
+		}
+	})
 }
-
-export default DownloadWorker;
