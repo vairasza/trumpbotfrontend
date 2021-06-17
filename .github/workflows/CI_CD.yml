@@ -1,4 +1,4 @@
-name: CI/CD counter app
+name: CI/CD trumpbot app
 
 on:
   push:
