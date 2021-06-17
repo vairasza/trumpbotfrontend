@@ -40,7 +40,7 @@ jobs:
             git pull origin master &&
             APP_NAME="trumpbot_website"
             OLD_ID=$(docker ps -qaf "name=trumpbotwebsite")
-            if [ -z $OLD_ID ];
+            if [ ! -z $OLD_ID ];
             then docker stop $OLD_ID;
             fi
             REMOVEABLE_IMAGES=$(docker images --filter dangling=true -q)
