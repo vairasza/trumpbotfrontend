@@ -1,4 +1,3 @@
-/* eslint-env node */
 const express = require('express')
 const path = require('path')
 
@@ -7,7 +6,7 @@ const port = process.env.PORT || 8001
 
 process.title = 'trumpbot_website'
 
-app.use(express.static(path.join(__dirname, 'app')))
+app.use(express.static(__dirname))
 
 app.all('*', (req, res) => {
 	res.sendStatus(401)

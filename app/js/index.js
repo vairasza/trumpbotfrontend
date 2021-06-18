@@ -1,10 +1,9 @@
-/* eslint-env browser */
-import TrumpModel from './data/TrumpModel.js'
-import {
+const { TrumpModel } = require('./data/TrumpModel.js')
+const {
 	errorMessageTemplate,
 	userTemplate,
 	startTemplate,
-} from './view/messageTemplate.js'
+} = require('./view/messageTemplate.js')
 
 const startButton = document.querySelector('.start-bot'),
 	modal = document.querySelector('.modal'),
@@ -46,6 +45,7 @@ function switchVersion(event) {
 		: (versionSwitch.innerHTML = '2.0')
 
 	trumpModel.init()
+	input.focus()
 }
 
 function listenToKeyEnter(event) {

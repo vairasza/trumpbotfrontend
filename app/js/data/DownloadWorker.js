@@ -1,6 +1,4 @@
-/* eslint-env browser */
-
-function fetchWithTimeout(url, options, timeout = 7000) {
+function fetchWithTimeout(url, options, timeout = 9000) {
 	return Promise.race([
 		fetch(url, options),
 		new Promise((_, reject) =>
@@ -16,7 +14,7 @@ function fetchWithTimeout(url, options, timeout = 7000) {
  * @return {Promise<object>} answer from the api; async
  */
 
-export const DownloadWorker = (user_input, api_version) => {
+const DownloadWorker = (user_input, api_version) => {
 	return new Promise(async (resolve, reject) => {
 		const api_url = api_version
 			? 'https://4lph2mtf07.execute-api.eu-central-1.amazonaws.com/prod/trumpbot-alt'
@@ -37,4 +35,8 @@ export const DownloadWorker = (user_input, api_version) => {
 			reject(error.message)
 		}
 	})
+}
+
+module.exports = {
+	DownloadWorker,
 }

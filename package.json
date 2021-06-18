@@ -2,10 +2,11 @@
 	"name": "trump_website",
 	"version": "1.0.0",
 	"description": "generates fictive tweets with language style of donald trump",
-	"main": "index.js",
+	"main": "server.js",
 	"scripts": {
-		"dev": "node ./index.js",
-		"pretty": "npx prettier --write ."
+		"pretty": "npx prettier --write .",
+		"build": "browserify ./app/js/index.js -o ./app/build/bundle.js",
+		"start": "npm run build && npm run pretty && node ./server.js"
 	},
 	"repository": {
 		"type": "git",
@@ -27,9 +28,8 @@
 	},
 	"homepage": "https://github.com/vairasza/trumpbot_website#readme",
 	"dependencies": {
-		"eslint": "^7.3.0",
-		"express": "^4.17.1",
-		"underscore": "^1.10.2"
+		"browserify": "^17.0.0",
+		"express": "^4.17.1"
 	},
 	"devDependencies": {
 		"prettier": "^2.3.1"

@@ -1,6 +1,4 @@
-/* eslint-env browser */
-
-import { DownloadWorker } from './DownloadWorker.js'
+const { DownloadWorker } = require('./DownloadWorker.js')
 
 class TrumpModel {
 	constructor() {
@@ -43,4 +41,6 @@ class TrumpModel {
 	}
 }
 
-export default TrumpModel
+module.exports = {
+	TrumpModel,
+}
