@@ -38,6 +38,6 @@ jobs:
             git fetch --all &&
             git reset --hard origin/master &&
             git pull origin master &&
-            chmod +x ./start_script.sh
+            chmod +x ./start_script.sh &&
             bash ./start_script.sh
           '
