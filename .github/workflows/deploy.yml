@@ -1,4 +1,4 @@
-name: CI/CD trumpbot app
+name: Deploy Trumpbot Frontend
 
 on:
   push:
