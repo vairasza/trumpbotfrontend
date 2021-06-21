@@ -4,9 +4,9 @@ ENV PORT=8001
 WORKDIR /app
 
 COPY ["package.json", "package-lock.json", "./"]
-RUN npm install
+RUN npm install --production
 COPY . .
 
 EXPOSE 8001
 
-CMD npm run dev
+CMD npm run start

@@ -6,7 +6,8 @@
 	"scripts": {
 		"pretty": "npx prettier --write .",
 		"build": "browserify ./app/js/index.js -o ./app/build/bundle.js",
-		"start": "npm run build && npm run pretty && node ./server.js"
+		"dev": "npm run build && node ./server.js",
+		"start": "npm run build && NODE_ENV=production node ./server.js"
 	},
 	"repository": {
 		"type": "git",
