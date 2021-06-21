@@ -20,7 +20,6 @@
 (port is 8001 by default; can be changed in server.js)
 
 ```
-  APP_NAME="trumpbot_website" &&
   git clone https://github.com/vairasza/trumpbot_website.git &&
   cd ./trumpbot_website &&
   npm run start
