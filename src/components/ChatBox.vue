@@ -11,7 +11,6 @@ const messages = ref([
     text: "Many are saying I'm the best 140 character writer in the world. Just give me a topic and will tweet the hell out of it!",
     type: "trump",
   },
-  { text: "china", type: "user" },
 ]);
 
 const processQuestion = async (message, callback) => {
@@ -23,11 +22,11 @@ const processQuestion = async (message, callback) => {
     text: message,
     type: "user",
   });
+  callback();
 
   //here comes trump or error message
-  const response = await request({ user_input: message });
+  const response = await request({ user_input: message, fake_tweet: "False" });
   console.log(response);
-  callback();
 };
 
 onUpdated(() => {

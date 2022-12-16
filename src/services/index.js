@@ -1,22 +1,22 @@
 export async function request(data) {
   const config = {
+    mode: "no-cors",
     method: "POST",
-    url: "https://oc2efhjwph.execute-api.eu-central-1.amazonaws.com/prod/",
     headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Access-Control-Allow-Credentials": true,
-      "Access-Control-Request-Method": "POST",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+    redirect: "follow",
   };
 
   try {
     const response = await fetch(
-      "https://oc2efhjwph.execute-api.eu-central-1.amazonaws.com/prod/",
+      "https://oc2efhjwph.execute-api.eu-central-1.amazonaws.com/prod/v1",
       config
     );
-    return await response.json();
+    return response;
   } catch (error) {
+    console.log(error);
     return {
       ok: false,
       error: error,
